@@ -10,8 +10,26 @@ This is particularly useful if your Stash server is remote (NAS/Docker) but you 
 
 *   **Native Finder Integration:** Clicks "Reveal" and the file is highlighted in Finder.
 *   **Path Mapping:** Automatically translates remote server paths (e.g., `/data/...`) to local mount paths (e.g., `/Volumes/Media/...`).
-*   **Lightweight:** No heavy apps or Python backends required. Just a tiny AppleScript helper and a Userscript.
-*   **Safe:** Uses a custom URL protocol (`stashreveal://`) so it works from any browser (Chrome, Safari, Firefox).
+*   **Protocol Based:** Uses a custom URL protocol (`stashreveal://`) so it works from any browser (Chrome, Safari, Firefox).
+*   **Network Agnostic:** Works perfectly with **NFS**, **SMB**, or local drives.
+
+## Use Cases: Why "Reveal" instead of "Play"?
+
+While many plugins focus on playing videos in MPV/VLC, **Stash Reveal** is designed for **file management and maintenance**.
+
+*   **Fix Corrupted Files:** Quickly locate a file that stutters or fails in Stash, then open it in tools like **HandBrake** or **FFmpeg** to re-encode it.
+*   **Video Editing:** Drag a clip directly from the revealed Finder window into **DaVinci Resolve**, **Final Cut Pro**, or **Shotcut** to trim bad scenes or fix aspect ratios.
+*   **Organization:** Easily rename, move, or delete files that Stash has identified but are in the wrong folder.
+*   **Metadata Verification:** Open the file in **MediaInfo** to check bitrates, codecs, and headers without downloading it first.
+
+## Notes on NFS & Remote Access
+
+This workflow shines when combined with **NFS (Network File System)**.
+
+While SMB (Samba) is standard, NFS is often faster and more stable for macOS, especially when scrubbing through large video files in an editor.
+
+*   **Tailscale Support:** If you use [Tailscale](https://tailscale.com/) to access your home server remotely, you can mount your NFS shares over the VPN. This means `Stash Reveal` works **anywhere in the world**—click the button in a cafe in Tokyo, and your Mac (connected via Tailscale) will mount the drive and reveal the file as if you were sitting at home.
+*   **Setup Guide:** For a tutorial on setting up NFS on macOS, check out [this guide](https://gist.github.com/maskimthejedi/2d5257dc16194d650175).
 
 ## Installation
 
