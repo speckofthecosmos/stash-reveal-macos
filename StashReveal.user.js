@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Stash Reveal in Finder (Clean)
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  Adds a "Reveal in Finder" button to file paths in Stash (No Duplicates)
 // @author       SpeckOfTheCosmos
 // @match        http://localhost:9999/*
@@ -16,11 +16,13 @@
         const potentialPaths = document.querySelectorAll('dd, span, div, .scene-file-info, .file-info-path');
 
         potentialPaths.forEach(pathEl => {
-             // 1. Skip if this specific element was already processed
-             if (pathEl.dataset.stashRevealProcessed) return;
+             // 1. Skip if this element OR any ancestor was already processed.
+             // Stash nests the path string (e.g. div > span), so an ancestor
+             // check is required — a self-only check lets every nesting level
+             // get its own button (the "multiple icons" bug).
+             if (pathEl.closest('[data-stash-reveal-processed]')) return;
 
-             // 2. CRITICAL FIX: Skip if a child element already has the button
-             // This prevents the "Double Icon" issue (parent and child both getting buttons)
+             // 2. Skip if a descendant already has the button (parent processed after child)
              if (pathEl.querySelector('.stash-reveal-btn')) return;
 
              const pathText = pathEl.textContent.trim();
@@ -40,7 +42,7 @@
 
              // 6. Create Button
              const btn = document.createElement('a');
-             btn.innerHTML = ' 📂'; 
+             btn.textContent = ' 📂';
              btn.title = 'Reveal in Finder';
              btn.className = 'stash-reveal-btn';
              btn.style.marginLeft = '10px';
