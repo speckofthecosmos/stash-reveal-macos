@@ -4,7 +4,7 @@
 // @version      1.5
 // @description  Adds a "Reveal in Finder" button to file paths in Stash (No Duplicates)
 // @author       SpeckOfTheCosmos
-// @match        http://localhost:9999/*
+// @include      http://localhost:9999/*
 // @grant        none
 // ==/UserScript==
 
